@@ -2,10 +2,13 @@ from parser import parse_input
 from handlers import add, all_contacts, change, remove, show, delete, remove, add_birthday, show_birthday, birthdays
 from models.address_book import AddressBook
 from models.record import Record
+from models.db import Database
 
 
 def main():
-    contacts_book = AddressBook()
+    db = Database()
+    contacts_book = db.load_data()
+    # contacts_book = AddressBook()
 
     record1_init = Record("John")
     record1_init.add_phone("1234567890")
@@ -32,6 +35,7 @@ def main():
 
         if command in ["close", "exit"]:
             print("Good bye!")
+            db.save_data(contacts_book)
             break
         elif command == "hello":
             print("How can I help you?")
